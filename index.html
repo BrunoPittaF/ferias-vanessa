@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 80px;
+    }
+
+    .digit {
+      margin: 0 5px;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 80px;
+      background-color: #151515;
+      border-radius: 6px;
+      padding: 10px;
+      min-height: 50px;
+      font-size: 3rem;
+    }
+
+    p {
+      text-transform: uppercase;
+      color: #353a40;
+      font-weight: bold;
+      margin: 10px 0px;
+    }
+
+
+    @media screen and (max-width: 375px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      .digit {
+        min-width: 40px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+
+      img {
+        max-width: 300px;
+      }
+    }
+  </style>
+  <title>Countdown Clock</title>
+</head>
+
+<body>
+
+  <h1>Contagem Regressiva - Férias</h1>
+  <div class="countdown" id="countdown">
+    <div class="container">
+      <div class="digit" id="days">00</div>
+      <p>Dias</p>
+    </div>
+
+
+    <div class="container">
+      <div class="digit" id="hours">00</div>
+      <p>Horas</p>
+    </div>
+
+    <div class="container">
+      <div class="digit" id="minutes">00</div>
+      <p>Minutos</p>
+    </div>
+
+    <div class="container">
+      <div class="digit" id="seconds">00</div>
+      <p>Segundos</p>
+    </div>
+
+
+
+  </div>
+  <div id="fireworks" class="fireworks">
+
+    <div class="gif"><img src="/imgs/lana-parrilla-dancing.gif" alt=""></div>
+    <div class="gif"><img src="/imgs/fireworks-firework.gif" alt=""></div>
+    <div class="gif"><img src="/imgs/girl-doida-aniversario-happy-birthday.gif" alt=""></div>
+
+  </div>
+  <script>
+    const targetDate = new Date('2023-12-04T16:00:00').getTime();
+
+
+    const countdownInterval = setInterval(() => {
+      const currentDate = new Date().getTime();
+      const timeDifference = targetDate - currentDate;
+
+
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+
+      document.getElementById('days').innerText = padZero(days);
+      document.getElementById('hours').innerText = padZero(hours);
+      document.getElementById('minutes').innerText = padZero(minutes);
+      document.getElementById('seconds').innerText = padZero(seconds);
+
+
+      if (timeDifference < 0) {
+        clearInterval(countdownInterval);
+        document.querySelector("h1").textContent = "FÉRIAAAS"
+        document.getElementById('countdown').style.display = "none";
+        document.getElementById('fireworks').style.display = 'block';
+      }
+    }, 1000);
+
+    function padZero(number) {
+      return number < 10 ? '0' + number : number;
+    }
+  </script>
+
+</body>
+
+</html>
